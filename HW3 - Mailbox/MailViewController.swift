@@ -18,6 +18,8 @@ class MailViewController: UIViewController {
     @IBOutlet weak var laterIcon: UIImageView!
     @IBOutlet weak var listIcon: UIImageView!
     @IBOutlet weak var deleteIcon: UIImageView!
+    @IBOutlet weak var rescheduleView: UIImageView!
+    @IBOutlet weak var listView: UIImageView!
     
     
     
@@ -43,6 +45,9 @@ class MailViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         scrollView.contentSize = feedView.image!.size
+    
+
+
   
 
 
@@ -203,8 +208,9 @@ class MailViewController: UIViewController {
                 UIView.animateWithDuration(0.3,
                     animations: {
                         // move messageImage back to original point
-                        // move icons back to their original points
                         self.messageImage.center.x = self.messageOriginalCenter.x
+
+                        // move icons back to their original points
                         self.laterIcon.center.x = self.laterIconInitialCenter.x
                         self.listIcon.center.x = self.laterIconInitialCenter.x
                         self.archiveIcon.center.x = self.archiveIconInitialCenter.x
@@ -215,10 +221,53 @@ class MailViewController: UIViewController {
                         self.messageView.backgroundColor = UIColor.lightGrayColor()
 
                     }
+                
                 )
+                
+            } else if translation.x >= 60 {
+                
+        
+                UIView.animateWithDuration(0.4, animations: {() -> Void in
+                    self.messageImage.center.x = self.messageOriginalCenter.x + 320
+                    self.archiveIcon.center.x = 320 - self.archiveIconInitialCenter.x
+                    self.deleteIcon.center.x = 320 - self.archiveIconInitialCenter.x
+                    self.messageView.alpha = 0
+                    },
+                    completion: {(Bool) -> Void in []
+                        UIView.animateWithDuration(0.4, animations: {
+                            self.feedView.center.y = self.feedView.center.y - 65
+                        })
+                })
+                
+            } else if -260 < translation.x && translation.x <= -60 {
+                
+                UIView.animateWithDuration(0.4, animations: {() -> Void in
+                    self.messageImage.center.x = self.messageOriginalCenter.x - 320
+                    self.laterIcon.center.x = 320 - self.laterIconInitialCenter.x
+                    self.listIcon.center.x = 320 - self.laterIconInitialCenter.x
+                    },
+                    completion: {(Bool) -> Void in []
+                        UIView.animateWithDuration(0.4, animations: {
+                            self.rescheduleView.alpha = 1
+                        })
+                })
+                
+            } else if translation.x < -260 {
+                UIView.animateWithDuration(0.4, animations: { () -> Void in
+                    self.messageImage.center.x = self.messageOriginalCenter.x - 320
+                    self.laterIcon.center.x = 320 - self.laterIconInitialCenter.x
+                    self.listIcon.center.x = 320 - self.laterIconInitialCenter.x
+                    
+                },
+                    completion: {(Bool) -> Void in []
+                        UIView.animateWithDuration(0.4, animations: {
+                            self.listView.alpha = 1
+                        })
+                })
+                
             }
         }
-    }
+}
 
 
  

@@ -68,6 +68,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="reschedule" id="LHj-e0-N76" userLabel="researchView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="list" id="KuL-mA-zqB" userLabel="listView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.90131578950000002" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -77,9 +85,11 @@
                         <outlet property="feedView" destination="Kqs-IL-dVp" id="U77-7o-WAz"/>
                         <outlet property="laterIcon" destination="NQ6-Rh-ZOQ" id="Rdo-lh-lfm"/>
                         <outlet property="listIcon" destination="FpD-T2-hvm" id="ZMg-bw-rOB"/>
+                        <outlet property="listView" destination="KuL-mA-zqB" id="tE4-wP-lSw"/>
                         <outlet property="messageImage" destination="iHl-FI-AN1" id="8kb-vb-5i7"/>
                         <outlet property="messagePanRecognizer" destination="0fe-aq-IfY" id="haP-6E-gLu"/>
                         <outlet property="messageView" destination="iwy-5l-0cz" id="jAf-uX-mis"/>
+                        <outlet property="rescheduleView" destination="LHj-e0-N76" id="KPt-xQ-EuZ"/>
                         <outlet property="scrollView" destination="CGW-gd-OYl" id="IVL-ns-Fw3"/>
                     </connections>
                 </viewController>
@@ -99,9 +109,11 @@
         <image name="feed" width="320" height="1202"/>
         <image name="help_label" width="320" height="37"/>
         <image name="later_icon" width="25" height="25"/>
+        <image name="list" width="320" height="568"/>
         <image name="list_icon" width="25" height="25"/>
         <image name="message" width="320" height="86"/>
         <image name="nav" width="320" height="65"/>
+        <image name="reschedule" width="320" height="568"/>
         <image name="search" width="320" height="42"/>
     </resources>
 </document>
