@@ -50,7 +50,7 @@
                                                 <rect key="frame" x="287" y="27" width="25" height="25"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </imageView>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="message" id="iHl-FI-AN1">
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="message" id="iHl-FI-AN1" userLabel="messageImage">
                                                 <rect key="frame" x="0.0" y="-6" width="320" height="86"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <gestureRecognizers/>
@@ -59,7 +59,7 @@
                                                 </connections>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.58838383838383845" green="0.58838383838383845" blue="0.58838383838383845" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.90131578950000002" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                     </view>
                                 </subviews>
@@ -77,6 +77,7 @@
                         <outlet property="feedView" destination="Kqs-IL-dVp" id="U77-7o-WAz"/>
                         <outlet property="laterIcon" destination="NQ6-Rh-ZOQ" id="Rdo-lh-lfm"/>
                         <outlet property="listIcon" destination="FpD-T2-hvm" id="ZMg-bw-rOB"/>
+                        <outlet property="messageImage" destination="iHl-FI-AN1" id="8kb-vb-5i7"/>
                         <outlet property="messagePanRecognizer" destination="0fe-aq-IfY" id="haP-6E-gLu"/>
                         <outlet property="messageView" destination="iwy-5l-0cz" id="jAf-uX-mis"/>
                         <outlet property="scrollView" destination="CGW-gd-OYl" id="IVL-ns-Fw3"/>

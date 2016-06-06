@@ -13,7 +13,7 @@ class MailViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var feedView: UIImageView!
     @IBOutlet weak var messageView: UIView!
-    
+    @IBOutlet weak var messageImage: UIImageView!
     @IBOutlet weak var archiveIcon: UIImageView!
     @IBOutlet weak var laterIcon: UIImageView!
     @IBOutlet weak var listIcon: UIImageView!
@@ -24,8 +24,7 @@ class MailViewController: UIViewController {
     @IBOutlet var messagePanRecognizer: UIPanGestureRecognizer!
     
     var messageOriginalCenter: CGPoint!
-    var messageLeft: CGPoint!
-    var messageRight: CGPoint!
+
     var moveIconsLeft:Bool!
     var moveIconsRight:Bool!
 
@@ -57,14 +56,14 @@ class MailViewController: UIViewController {
         var point = messagePanRecognizer.locationInView(view)
         
         // Relative change in (x,y) coordinates from where gesture began.
-        let translation = messagePanRecognizer.translationInView(view)
+        var translation = messagePanRecognizer.translationInView(view)
         var velocity = messagePanRecognizer.velocityInView(view)
         
         
         if sender.state == UIGestureRecognizerState.Began {
             
             // Sets the center of Message View
-            messageOriginalCenter = messageView.center
+            messageOriginalCenter = messageImage.center
             
             // Sets the center of Archive Icon
             archiveIconInitialCenter = archiveIcon.center
@@ -81,8 +80,9 @@ class MailViewController: UIViewController {
         } else if sender.state == UIGestureRecognizerState.Changed {
             
             
+            
             // If pan input x value changes, move Message View
-            messageView.center.x = messageOriginalCenter.x + translation.x
+            messageImage.center.x = messageOriginalCenter.x + translation.x
             
             //if past x value threshold, start moving icons
             
@@ -101,39 +101,128 @@ class MailViewController: UIViewController {
                 listIcon.center.x = laterIconInitialCenter.x + translation.x + 60
             }
             
-            
-        } else if translation.x > 60 {
-            
+            if 30 <= translation.x && translation.x < 60 {
+                
                 //make the archive icon opaque
                 UIView.animateWithDuration(0.4, animations: {
                     self.archiveIcon.alpha = 1
-
-
                 })
-            
-            if moveIconsRight == true {
+                
+                
+                // if moving from right back towards center, reset the bkgnd to gray, stop moving icons and reset their positions
+                if moveIconsRight == true {
+                    UIView.animateWithDuration(0.4, animations: {
+                        self.messageView.backgroundColor = UIColor.lightGrayColor()
+                    })
+                    moveIconsRight = false
+                    archiveIcon.center.x = archiveIconInitialCenter.x
+                    deleteIcon.center.x = archiveIconInitialCenter.x
+                    laterIcon.alpha = 0.5
+                }
+                
+            } else if -60 < translation.x && translation.x <= -30 {
+                //start making later icon opaque
+                laterIcon.alpha = 1
+                
+                //if moving left to right, reset the bknd color, stop moving the icons, and reset them to their original position
+                if moveIconsLeft == true {
+                    UIView.animateWithDuration(0.4, animations: {
+                        self.messageView.backgroundColor = UIColor.lightGrayColor()
+                    })
+                    moveIconsLeft = false
+                    laterIcon.center.x = laterIconInitialCenter.x
+                    listIcon.center.x = laterIconInitialCenter.x
+                    archiveIcon.alpha = 0.5
+                }
+                
+            } else if 60 <= translation.x && translation.x < 260 {
+                
+                //set bkgn color to green
+                // start moving archive icon
                 UIView.animateWithDuration(0.4, animations: {
-                    self.messageView.backgroundColor = UIColor.lightGrayColor()
+                    self.messageView.backgroundColor = UIColor(red: 153, green: 239, blue: 0)
+                
+
                 })
-                moveIconsRight = false
-                archiveIcon.center.x = archiveIconInitialCenter.x
-                deleteIcon.center.x = archiveIconInitialCenter.x
-                laterIcon.alpha = 0.5
+                laterIcon.alpha = 0
+                moveIconsRight = true
+                
+                if archiveIcon.alpha == 0 {
+                    archiveIcon.alpha = 1
+                    deleteIcon.alpha = 0
+                }
+                
+                
+                
+            } else if -260 <= translation.x && translation.x < -60 {
+                
+                
+                //set bkgn color to yellow
+                UIView.animateWithDuration(0.4, animations: {
+                    self.messageView.backgroundColor = UIColor(red: 244, green: 229, blue: 0)
+                })
+                archiveIcon.alpha = 0
+                //start moving the later icon
+                moveIconsLeft = true
+                if laterIcon.alpha == 0 {
+                    laterIcon.alpha = 1
+                    listIcon.alpha = 0
+                }
+                
+                
+            } else if 260 <= translation.x {
+                
+                //set bkgnd color to red
+                //archive icon changes to delete icon
+                UIView.animateWithDuration(0.4, animations: {
+                    self.messageView.backgroundColor = UIColor(red: 244, green: 44, blue: 0)
+                })
+                archiveIcon.alpha = 0
+                deleteIcon.alpha = 1
+                
+            } else if translation.x < -260 {
+                
+                //set bkgnd color to brown
+                
+                //later icon changes to list icon
+                if messageView.backgroundColor != UIColor.brownColor() {
+                    UIView.animateWithDuration(0.4, animations: {
+                        self.messageView.backgroundColor = UIColor.brownColor()
+                    })
+                    laterIcon.alpha = 0
+                    listIcon.alpha = 1
+                }
+                
             }
-            
-       
-            
-            
-     
+
             
         } else if sender.state == UIGestureRecognizerState.Ended {
-        
             
-            // Sets the center of Message View
-            
+            // Resets position to center
+
             UIView.animateWithDuration(0.3, animations: {
-                self.messageView.center.x = self.messageOriginalCenter.x
+                self.messageImage.center.x = self.messageOriginalCenter.x
+                
             })
+            
+            if abs(translation.x) < 60  {
+                
+                
+                // Resets background color to grey
+
+                messageView.backgroundColor = UIColor.lightGrayColor()
+
+                
+                // Resets all icons
+                
+                laterIcon.center.x = laterIconInitialCenter.x
+                listIcon.center.x = laterIconInitialCenter.x
+                archiveIcon.center.x = archiveIconInitialCenter.x
+                deleteIcon.center.x = archiveIconInitialCenter.x
+
+            }
+
+        
         }
     
     }
@@ -144,19 +233,16 @@ class MailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        let newRed = CGFloat(red)/255
+        let newGreen = CGFloat(green)/255
+        let newBlue = CGFloat(blue)/255
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
+    }
+}
+
+
