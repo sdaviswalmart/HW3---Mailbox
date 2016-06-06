@@ -264,10 +264,33 @@ class MailViewController: UIViewController {
                             self.listView.alpha = 1
                         })
                 })
-                
             }
         }
 }
+    
+    @IBAction func tapListView(sender: UITapGestureRecognizer) {
+  
+        UIView.animateWithDuration(0.4, animations: {
+            self.listView.alpha = 0
+            self.messageView.alpha = 0
+            self.feedView.center.y = self.feedView.center.y - 65
+        })
+          }
+        
+    
+    
+    @IBAction func tapRescheduleView(sender: UITapGestureRecognizer) {
+   
+        UIView.animateWithDuration(0.4, animations: {
+            self.rescheduleView.alpha = 0
+            self.messageView.alpha = 0
+            self.feedView.center.y = self.feedView.center.y - 65
+        })
+         }
+        
+    
+    
+    
 
 
  

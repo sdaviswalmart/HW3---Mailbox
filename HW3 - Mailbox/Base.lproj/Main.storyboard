@@ -68,13 +68,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="reschedule" id="LHj-e0-N76" userLabel="researchView">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="reschedule" id="LHj-e0-N76" userLabel="rescheduleView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="YAp-Bm-n0H" appends="YES" id="KRA-EG-uMo"/>
+                                </connections>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" image="list" id="KuL-mA-zqB" userLabel="listView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Bi0-Ed-Psa" appends="YES" id="BxJ-p9-KWB"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.90131578950000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -99,6 +106,16 @@
                         <action selector="didPanMessage:" destination="BYZ-38-t0r" id="tOZ-T7-Vep"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer id="YAp-Bm-n0H" userLabel="tapRescheduleView">
+                    <connections>
+                        <action selector="tapRescheduleView:" destination="BYZ-38-t0r" id="v1t-7V-fci"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Bi0-Ed-Psa" userLabel="tapListView">
+                    <connections>
+                        <action selector="tapListView:" destination="BYZ-38-t0r" id="hhJ-SW-sJw"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-75" y="196"/>
         </scene>
