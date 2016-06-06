@@ -198,35 +198,30 @@ class MailViewController: UIViewController {
             
         } else if sender.state == UIGestureRecognizerState.Ended {
             
-            // Resets position to center
-
-            UIView.animateWithDuration(0.3, animations: {
-                self.messageImage.center.x = self.messageOriginalCenter.x
-                
-            })
             
-            if abs(translation.x) < 60  {
-                
-                
-                // Resets background color to grey
+            if abs(translation.x) < 60 {
+                UIView.animateWithDuration(0.3,
+                    animations: {
+                        // move messageImage back to original point
+                        // move icons back to their original points
+                        self.messageImage.center.x = self.messageOriginalCenter.x
+                        self.laterIcon.center.x = self.laterIconInitialCenter.x
+                        self.listIcon.center.x = self.laterIconInitialCenter.x
+                        self.archiveIcon.center.x = self.archiveIconInitialCenter.x
+                        self.deleteIcon.center.x = self.archiveIconInitialCenter.x
+                    },
+                    completion: {(value: Bool) in
+                        // change messageView background back to light gray
+                        self.messageView.backgroundColor = UIColor.lightGrayColor()
 
-                messageView.backgroundColor = UIColor.lightGrayColor()
-
-                
-                // Resets all icons
-                
-                laterIcon.center.x = laterIconInitialCenter.x
-                listIcon.center.x = laterIconInitialCenter.x
-                archiveIcon.center.x = archiveIconInitialCenter.x
-                deleteIcon.center.x = archiveIconInitialCenter.x
-
+                    }
+                )
             }
-
-        
         }
-    
     }
-    
+
+
+ 
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
